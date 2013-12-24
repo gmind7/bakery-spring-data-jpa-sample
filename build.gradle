@@ -14,10 +14,10 @@ buildscript {
 		maven { url "http://repo.spring.io/plugins-snapshot" }
 	}
 	dependencies {
-		classpath "org.gradle.api.plugins:gradle-tomcat-plugin:1.0"
-		classpath "org.gradle.api.plugins:gradle-cargo-plugin:0.6.1"
-		classpath "org.springframework.build.gradle:bundlor-plugin:0.1.2"
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+		classpath "org.gradle.api.plugins:gradle-tomcat-plugin:$gradleTomcatPluginVersion"
+		classpath "org.gradle.api.plugins:gradle-cargo-plugin:$gradleCargoPluginVersion"
+		classpath "org.springframework.build.gradle:bundlor-plugin:$gradleSpringBundlorPluginVersion"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$gradleSpringBootPluginVersion"
 	}
 }
 
