@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j>
+<configuration scan="true" scanPeriod="60 seconds">
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator />
+    
+    <if condition='!isDefined("${spring.profiles.active}") '>
+        <then>
+             <appender name="CATALINA" class="ch.qos.logback.core.ConsoleAppender">
+                <encoder>
+                    <pattern>%d %5p %50.50c{50}:%4L - %m%n</pattern>
+                </encoder>
+            </appender>
+        </then>
+        <else>
+            <appender name="CATALINA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <file>${catalina.base}/logs/catalina.log</file>
+                <append>true</append>
+                <encoder>
+                    <charset>utf-8</charset>
+                    <pattern>%d %5p %50.50c{50}:%4L - %m%n</pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${catalina.base}/logs/catalina-%d{yyyy.MM.dd}-%i.log.zip</fileNamePattern>
+                    <maxHistory>10<!-- days --></maxHistory>
+                    <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                        <maxFileSize>10MB</maxFileSize>
+                    </timeBasedFileNamingAndTriggeringPolicy>
+                </rollingPolicy>
+            </appender>
+        </else>
+    </if>
+    
+    <!-- 개발완료된 이후 적용하기 
+    <appender name="CoalescingStatistics" class="org.perf4j.logback.AsyncCoalescingStatisticsAppender">
+        <param name="TimeSlice" value="10000"/>
+        <appender-ref ref="CATALINA"/>
+    </appender>
+    
+    <logger name="org.perf4j.TimingLogger" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="CoalescingStatistics"/>
+    </logger>
+    -->
+     
+    <!-- Application Loggers -->
+    <logger name="com.gmind7">
+        <level value="debug"/>
+    </logger>
+    
+    <!-- 3rdparty Loggers -->    
+    <logger name="org.springframework">
+        <level value="warn" />
+    </logger>   
+    
+    <logger name="java.sql.debug">
+        <level value="error" />
+    </logger>
+    
+    <logger name="org.hibernate">
+        <level value="warn" />
+    </logger>
+    
+    <logger name="org.infinispan">
+        <level value="warn" />
+    </logger>
+    
+    <logger name="org.hibernate.cache">
+        <level value="warn" />
+    </logger>
+    
+    <logger name="net.sf.ehcache">
+        <level value="warn" />
+    </logger>
+    
+    <logger name="org.mybatis">
+        <level value="warn" />
+    </logger>
+    
+    <logger name="org.mysema">
+        <level value="warn"/>
+    </logger>
+    
+    <logger name="org.thymeleaf">
+        <level value="warn" />
+    </logger>
+    
+    <!-- Root Logger -->
+    <root>
+        <priority value="debug" />
+        <appender-ref ref="CATALINA" />
+    </root>
+    
+</configuration>

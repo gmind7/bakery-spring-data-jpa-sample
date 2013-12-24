@@ -1,0 +1,223 @@
+description = "Spring Data JPA Sample"
+
+defaultTasks 'build'
+
+ext {
+    gradleScriptDir = "${rootProject.projectDir}/gradle"
+}
+
+buildscript {
+	repositories {
+		jcenter()
+		maven { url "http://repo.spring.io/plugins-release" }		
+		maven { url "http://repo.spring.io/plugins-milestone" }
+		maven { url "http://repo.spring.io/plugins-snapshot" }
+	}
+	dependencies {
+		classpath "org.gradle.api.plugins:gradle-tomcat-plugin:1.0"
+		classpath "org.gradle.api.plugins:gradle-cargo-plugin:0.6.1"
+		classpath "org.springframework.build.gradle:bundlor-plugin:0.1.2"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+	}
+}
+
+task wrapper(type: Wrapper) {
+	description = "Generates gradlew[.bat] scripts"
+	gradleVersion = "$gradleVersion"
+  
+	doLast() {
+	  def gradleOpts = "-XX:MaxPermSize=1024m -Xmx1024m"
+	  def gradleBatOpts = "$gradleOpts -XX:MaxHeapSize=256m"
+	  File wrapperFile = file("gradlew")
+	  wrapperFile.text = wrapperFile.text.replace("DEFAULT_JVM_OPTS=",
+												  "GRADLE_OPTS=\"$gradleOpts \$GRADLE_OPTS\"\nDEFAULT_JVM_OPTS=")
+	  File wrapperBatFile = file("gradlew.bat")
+	  wrapperBatFile.text = wrapperBatFile.text.replace("set DEFAULT_JVM_OPTS=",
+														"set GRADLE_OPTS=$gradleBatOpts %GRADLE_OPTS%\nset DEFAULT_JVM_OPTS=")
+	}
+}
+
+configure(allprojects) {
+	
+	apply plugin: "java"
+	apply plugin: "idea"
+	apply plugin: "eclipse-wtp"
+	apply plugin: "maven"
+	apply from: "${gradleScriptDir}/maven.gradle"
+	apply from: "${gradleScriptDir}/ide.gradle"
+	
+	configurations {
+	  //compile.extendsFrom providedCompile 
+	  all {
+		//Hack to let Gradle pickup latest SNAPSHOTS
+		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+		  
+		exclude group: "commons-logging"
+		exclude module: "slf4j-log4j12"
+		exclude module: "servlet-api"
+	  }
+	}
+  
+	project.sourceCompatibility = 1.7
+	project.targetCompatibility = 1.7
+	
+	[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g", "-encoding", "UTF-8"]
+  
+	sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
+  
+  	repositories {
+	  mavenLocal()
+	  mavenCentral()
+	  maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2" }
+	  maven { url "http://repo.spring.io/libs-release" }
+	  maven { url "http://repo.spring.io/libs-milestone" }
+	  maven { url "http://repo.spring.io/libs-snapshot" }
+	}
+  
+	dependencies {
+	  // Logging
+	  runtime "ch.qos.logback:logback-classic:$logbackVersion"
+	  compile "org.slf4j:slf4j-api:$slf4jVersion"
+	  runtime "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+	  
+	  // Testing
+	  testCompile "junit:junit:$junitVersion"
+	  testCompile "org.hamcrest:hamcrest-library:$hamcrestVersion"
+	  testCompile "com.jayway.jsonpath:json-path:$jsonpathVersion"
+	  testCompile "org.mockito:mockito-core:$mockitoVersion"
+	}
+}
+
+configure(subprojects) { subproject ->
+
+	apply from: "${gradleScriptDir}/maven.gradle"
+  
+	group = "${group}"
+	
+	javadoc {
+	  options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
+	  options.author = true
+	  options.header = subproject.name
+	}
+  
+	task sourcesJar(type: Jar, dependsOn: classes) {
+	  classifier = "sources"
+	  from sourceSets.main.allJava
+	}
+	task javadocJar(type: Jar) {
+	  classifier = "javadoc"
+	  from javadoc
+	}
+  
+	artifacts {
+	  archives sourcesJar
+	  archives javadocJar
+	}
+
+	dependencies {
+	  // Bakery
+	  compile "com.gmind7.bakery:spring-application-config:$bakeryVersion"
+	  
+	  // Spring
+	  compile("org.springframework:spring-core:$springVersion") { force = true }
+	  compile("org.springframework:spring-beans:$springVersion") { force = true }	 
+	  compile("org.springframework:spring-aop:$springVersion") { force = true }
+	  compile("org.springframework:spring-aspects:$springVersion") { force = true }
+      compile("org.springframework:spring-expression:$springVersion") { force = true }
+	  compile("org.springframework:spring-tx:$springVersion") { force = true }
+	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
+	  
+	  // AspectJ
+	  compile "org.aspectj:aspectjrt:$aspectjVersion"
+	  compile "org.aspectj:aspectjweaver:$aspectjVersion"
+	  compile "aopalliance:aopalliance:$aopallianceVersion"
+	  
+	  // Jackson
+      compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+      compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$jacksonVersion"
+	  
+	  // JSR 303 with Hibernate Validator
+	  compile "javax.validation:validation-api:$javaxValidationVersion"
+	  compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+	  
+	  // Apache Commons
+	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+	  compile "commons-io:commons-io:$apacheCommonsIOVersion"
+	  compile "commons-fileupload:commons-fileupload:$apacheCommonsFileuploadVersion"
+	  compile "commons-beanutils:commons-beanutils:$apacheCommonsBeanutilsVersion"
+	  compile "commons-collections:commons-collections:$apacheCommonsCollectionsVersion"
+	  compile "commons-configuration:commons-configuration:$apacheCommonsConfigurationVersion"
+	  compile "commons-pool:commons-pool:$apacheCommonsPoolVersion"
+	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
+	  
+      // Etc Supporting libraries
+      runtime "cglib:cglib-nodep:$cglibVersion"
+      compile "com.google.guava:guava:$guavaVersion"
+      compile "joda-time:joda-time:$jodaVersion"
+	  //providedCompile "org.projectlombok:lombok:$lombokVersion"
+		
+	  // APIs
+      compile "javax.inject:javax.inject:$javaxInjectVersion"
+      
+	  // Testing
+      testCompile("org.springframework:spring-test:$springVersion") { force = true }
+      testRuntime("org.springframework:spring-context-support:$springVersion") { force = true }
+	}
+}
+
+configure(subprojects.findAll { it.name.endsWith('web') }) {
+	
+	apply plugin: "war"
+    apply plugin: "tomcat"
+    apply plugin: "cargo"
+	
+	dependencies {
+		
+	  // Project
+	  compile project(":spring-data-jpa")
+	  compile project(":spring-shared")
+		
+	  // Bakery	
+      compile "com.gmind7.bakery:spring-web-rest-config:$bakeryVersion"
+	  compile "com.gmind7.bakery:spring-web-support:$bakeryVersion"
+	  
+	  // Thymeleaf
+	  compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
+	  compile "org.thymeleaf:thymeleaf-spring3:$thymeleafVersion"
+	  compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:$thymeleafExtrasSpringsecurity3"
+	  compile "nz.net.ultraq.web.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion"
+	  
+	  // Tomcat
+	  tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion"
+	  tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion"
+	  tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:$tomcatVersion") {
+		  exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+	  }
+	  
+	  // Cargo
+	  cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion"
+	  cargo "org.codehaus.cargo:cargo-ant:$cargoVersion"
+	  
+	  // Servlet
+	  providedCompile "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+	  providedCompile "javax.websocket:javax.websocket-api:$javaxWebSocketVersion"
+	  providedCompile "javax.servlet:jsp-api:$javaxServletJspApiVersion"
+	  providedCompile "org.apache.tomcat:tomcat-servlet-api:$tomcatVersion"
+	  
+	}
+
+	cargo {
+	  containerId = 'tomcat7x'
+	  port = 9080
+	}
+	
+}
+
+project("spring-data-jpa"){
+	dependencies {
+	  compile project(":spring-shared")
+	}
+}

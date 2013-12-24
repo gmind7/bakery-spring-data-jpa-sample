@@ -1,4 +1,4 @@
-spring-data-jpa-sample
-======================
+spring-data-jpa-example
+=======================
 
-spring-data-jpa-sample
+Spring Data JPA + QueryDSL Example

@@ -1,0 +1,5 @@
+rootProject.name = "spring-data-jpa-sample"
+
+include "spring-data-jpa"
+include "spring-shared"
+include "spring-web"
