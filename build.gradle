@@ -17,7 +17,6 @@ buildscript {
 		classpath "org.gradle.api.plugins:gradle-tomcat-plugin:$gradleTomcatPluginVersion"
 		classpath "org.gradle.api.plugins:gradle-cargo-plugin:$gradleCargoPluginVersion"
 		classpath "org.springframework.build.gradle:bundlor-plugin:$gradleSpringBundlorPluginVersion"
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:$gradleSpringBootPluginVersion"
 	}
 }
 
@@ -45,35 +44,40 @@ configure(allprojects) {
 	apply plugin: "maven"
 	apply from: "${gradleScriptDir}/maven.gradle"
 	apply from: "${gradleScriptDir}/ide.gradle"
-	
+     
+	group = "${group}"
+	 
 	configurations {
-	  //compile.extendsFrom providedCompile 
 	  all {
 		//Hack to let Gradle pickup latest SNAPSHOTS
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-		  
 		exclude group: "commons-logging"
 		exclude module: "slf4j-log4j12"
-		exclude module: "servlet-api"
 	  }
 	}
-  
+	
 	project.sourceCompatibility = 1.7
 	project.targetCompatibility = 1.7
 	
 	[compileJava, compileTestJava]*.options*.compilerArgs = ["-Xlint:none", "-g", "-encoding", "UTF-8"]
   
-	sourceSets.test.resources.srcDirs = ["src/test/resources", "src/test/java"]
+	sourceSets.test.resources.srcDirs = ["src/test/java", "src/test/resources"]
   
   	repositories {
 	  mavenLocal()
 	  mavenCentral()
-	  maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2" }
 	  maven { url "http://repo.spring.io/libs-release" }
 	  maven { url "http://repo.spring.io/libs-milestone" }
 	  maven { url "http://repo.spring.io/libs-snapshot" }
+	  maven { url "https://raw.github.com/gmind7/gmind7.maven.repository/master/releases" }
 	}
-  
+	  
+    uploadArchives {
+	  repositories.mavenDeployer {
+	    repository(url: "file://F:/Git/gmind7.maven.repository/releases")
+	  }
+    }
+	
 	dependencies {
 	  // Logging
 	  runtime "ch.qos.logback:logback-classic:$logbackVersion"
@@ -90,10 +94,6 @@ configure(allprojects) {
 
 configure(subprojects) { subproject ->
 
-	apply from: "${gradleScriptDir}/maven.gradle"
-  
-	group = "${group}"
-	
 	javadoc {
 	  options.memberLevel = org.gradle.external.javadoc.JavadocMemberLevel.PROTECTED
 	  options.author = true
@@ -115,20 +115,20 @@ configure(subprojects) { subproject ->
 	}
 
 	dependencies {
-	  // Bakery
-	  compile "com.gmind7.bakery:spring-application-config:$bakeryVersion"
-	  
+	  // Gmind7
+      compile("com.gmind7.bakery:spring-application-config:$bakeryVersion") { force = true }
+  
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
-	  compile("org.springframework:spring-beans:$springVersion") { force = true }	 
+	  compile("org.springframework:spring-beans:$springVersion") { force = true }	
+	  compile("org.springframework:spring-context:$springVersion") { force = true }
+	  compile("org.springframework:spring-context-support:$springVersion") { force = true }
 	  compile("org.springframework:spring-aop:$springVersion") { force = true }
 	  compile("org.springframework:spring-aspects:$springVersion") { force = true }
       compile("org.springframework:spring-expression:$springVersion") { force = true }
 	  compile("org.springframework:spring-tx:$springVersion") { force = true }
+	  compile("org.springframework:spring-orm:$springVersion") { force = true }
 	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
-	  compile("org.springframework:spring-web:$springVersion") { force = true }
-	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
-	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  
 	  // AspectJ
 	  compile "org.aspectj:aspectjrt:$aspectjVersion"
@@ -143,6 +143,47 @@ configure(subprojects) { subproject ->
 	  compile "javax.validation:validation-api:$javaxValidationVersion"
 	  compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
 	  
+	  // Etc Supporting libraries
+	  runtime "cglib:cglib-nodep:$cglibVersion"
+	  compile "com.google.guava:guava:$guavaVersion"
+	  compile "joda-time:joda-time:$jodaVersion"
+	  //providedCompile "org.projectlombok:lombok:$lombokVersion"
+	  
+	  // APIs
+      compile "javax.inject:javax.inject:$javaxInjectVersion"
+      compile "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
+      
+	  // Testing
+      testCompile("org.springframework:spring-test:$springVersion") { force = true }
+    }
+}
+
+project("spring-data-jpa"){
+	dependencies {
+	  compile project(":spring-shared")
+	}
+}
+
+project("spring-web"){
+
+    apply plugin: "war"
+    apply plugin: "tomcat"
+    apply plugin: "cargo"
+	
+	dependencies {
+	  // Project
+	  compile project(":spring-data-jpa")
+	  compile project(":spring-shared")
+	
+      // Gmind7
+      compile("com.gmind7.bakery:spring-web-api-config:$bakeryVersion") { force = true }
+      compile("com.gmind7.bakery:spring-web-support:$bakeryVersion") { force = true }
+  
+	  // Spring
+	  compile("org.springframework:spring-web:$springVersion") { force = true }
+	  compile("org.springframework:spring-webmvc:$springVersion") { force = true }
+	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
+	  
 	  // Apache Commons
 	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
 	  compile "commons-io:commons-io:$apacheCommonsIOVersion"
@@ -152,44 +193,7 @@ configure(subprojects) { subproject ->
 	  compile "commons-configuration:commons-configuration:$apacheCommonsConfigurationVersion"
 	  compile "commons-pool:commons-pool:$apacheCommonsPoolVersion"
 	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
-	  
-      // Etc Supporting libraries
-      runtime "cglib:cglib-nodep:$cglibVersion"
-      compile "com.google.guava:guava:$guavaVersion"
-      compile "joda-time:joda-time:$jodaVersion"
-	  //providedCompile "org.projectlombok:lombok:$lombokVersion"
-		
-	  // APIs
-      compile "javax.inject:javax.inject:$javaxInjectVersion"
-      
-	  // Testing
-      testCompile("org.springframework:spring-test:$springVersion") { force = true }
-      testRuntime("org.springframework:spring-context-support:$springVersion") { force = true }
-	}
-}
 
-configure(subprojects.findAll { it.name.endsWith('web') }) {
-	
-	apply plugin: "war"
-    apply plugin: "tomcat"
-    apply plugin: "cargo"
-	
-	dependencies {
-		
-	  // Project
-	  compile project(":spring-data-jpa")
-	  compile project(":spring-shared")
-		
-	  // Bakery	
-      compile "com.gmind7.bakery:spring-web-rest-config:$bakeryVersion"
-	  compile "com.gmind7.bakery:spring-web-support:$bakeryVersion"
-	  
-	  // Thymeleaf
-	  compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
-	  compile "org.thymeleaf:thymeleaf-spring3:$thymeleafVersion"
-	  compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:$thymeleafExtrasSpringsecurity3"
-	  compile "nz.net.ultraq.web.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion"
-	  
 	  // Tomcat
 	  tomcat "org.apache.tomcat.embed:tomcat-embed-core:$tomcatVersion"
 	  tomcat "org.apache.tomcat.embed:tomcat-embed-logging-juli:$tomcatVersion"
@@ -212,12 +216,5 @@ configure(subprojects.findAll { it.name.endsWith('web') }) {
 	cargo {
 	  containerId = 'tomcat7x'
 	  port = 9080
-	}
-	
-}
-
-project("spring-data-jpa"){
-	dependencies {
-	  compile project(":spring-shared")
 	}
 }

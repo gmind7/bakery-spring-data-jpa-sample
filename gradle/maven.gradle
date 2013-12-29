@@ -30,7 +30,7 @@ def customizePom(pom, gradleProject) {
     // add all items necessary for maven central publication
     generatedPom.project {
       name = "Spring Configuration Template"
-      description = "스프링 프로젝트를 위한 설정 템플릿 프로젝트"
+      description = "Gmind7 Bakery Spring Configuration Teamplte"
       url = 'https://github.com/gmind7/spring-configuration-sample'
       organization {
         name = 'gmind7'
