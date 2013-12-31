@@ -53,6 +53,7 @@ configure(allprojects) {
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 		exclude group: "commons-logging"
 		exclude module: "slf4j-log4j12"
+		exclude module: "hibernate-jpa-2.0-api"
 	  }
 	}
 	
@@ -69,6 +70,7 @@ configure(allprojects) {
 	  maven { url "http://repo.spring.io/libs-release" }
 	  maven { url "http://repo.spring.io/libs-milestone" }
 	  maven { url "http://repo.spring.io/libs-snapshot" }
+	  maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 	  maven { url "https://raw.github.com/gmind7/gmind7.maven.repository/master/releases" }
 	}
 	  
@@ -115,8 +117,13 @@ configure(subprojects) { subproject ->
 	}
 
 	dependencies {
+	  // Project
+	  if(subproject.name!="spring-shared") compile project(":spring-shared")
+		
 	  // Gmind7
       compile("com.gmind7.bakery:spring-application-config:$bakeryVersion") { force = true }
+	  compile("com.gmind7.bakery:spring-database-config:$bakeryVersion") { force = true }
+	  compile("com.gmind7.bakery:spring-ehcache-config:$bakeryVersion") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
@@ -127,21 +134,57 @@ configure(subprojects) { subproject ->
 	  compile("org.springframework:spring-aspects:$springVersion") { force = true }
       compile("org.springframework:spring-expression:$springVersion") { force = true }
 	  compile("org.springframework:spring-tx:$springVersion") { force = true }
+	  // Spring JPA
 	  compile("org.springframework:spring-orm:$springVersion") { force = true }
 	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
+	  compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") { force=true }
+	  compile("org.springframework.data:spring-data-jdbc-core:$springDataJdbcVersion") { force=true }
 	  
 	  // AspectJ
 	  compile "org.aspectj:aspectjrt:$aspectjVersion"
 	  compile "org.aspectj:aspectjweaver:$aspectjVersion"
 	  compile "aopalliance:aopalliance:$aopallianceVersion"
 	  
-	  // Jackson
-      compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
-      compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$jacksonVersion"
+	  // APIs
+	  compile "javax.inject:javax.inject:$javaxInjectVersion"
+	  
+	  // Apache Commons
+	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
+	  compile "commons-io:commons-io:$apacheCommonsIOVersion"
+	  compile "commons-fileupload:commons-fileupload:$apacheCommonsFileuploadVersion"
+	  compile "commons-beanutils:commons-beanutils:$apacheCommonsBeanutilsVersion"
+	  compile "commons-collections:commons-collections:$apacheCommonsCollectionsVersion"
+	  compile "commons-configuration:commons-configuration:$apacheCommonsConfigurationVersion"
+	  compile "commons-pool:commons-pool:$apacheCommonsPoolVersion"
 	  
 	  // JSR 303 with Hibernate Validator
 	  compile "javax.validation:validation-api:$javaxValidationVersion"
 	  compile "org.hibernate:hibernate-validator:$hibernateValidatorVersion"
+	  
+	  // RDBMS
+	  runtime "org.hsqldb:hsqldb:$hsqldbVersion"
+	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
+			 
+	  // Hibernate
+	  compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
+	  
+	  // Mybatis
+	  compile "org.mybatis:mybatis:$mybatisVersion"
+	  compile "org.mybatis:mybatis-spring:$mybatisSpringVersion"
+	  
+	  // QueryDSL
+	  compile "com.mysema.querydsl:querydsl-core:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-jpa:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-sql:$queryDslVersion"
+	  
+	  // Ehcache
+	  compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
+	  compile "net.sf.ehcache:ehcache-core:$ehcacheVersion"
+	  
+	  // Jackson
+      compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+      compile "com.fasterxml.jackson.datatype:jackson-datatype-hibernate4:$jacksonVersion"
 	  
 	  // Etc Supporting libraries
 	  runtime "cglib:cglib-nodep:$cglibVersion"
@@ -149,19 +192,9 @@ configure(subprojects) { subproject ->
 	  compile "joda-time:joda-time:$jodaVersion"
 	  //providedCompile "org.projectlombok:lombok:$lombokVersion"
 	  
-	  // APIs
-      compile "javax.inject:javax.inject:$javaxInjectVersion"
-      compile "javax.servlet:javax.servlet-api:$javaxServletApiVersion"
-      
 	  // Testing
       testCompile("org.springframework:spring-test:$springVersion") { force = true }
     }
-}
-
-project("spring-data-jpa"){
-	dependencies {
-	  compile project(":spring-shared")
-	}
 }
 
 project("spring-web"){
@@ -173,7 +206,6 @@ project("spring-web"){
 	dependencies {
 	  // Project
 	  compile project(":spring-data-jpa")
-	  compile project(":spring-shared")
 	
       // Gmind7
       compile("com.gmind7.bakery:spring-web-api-config:$bakeryVersion") { force = true }
@@ -185,13 +217,6 @@ project("spring-web"){
 	  compile("org.springframework.hateoas:spring-hateoas:$springHateoasVersion") { force = true }
 	  
 	  // Apache Commons
-	  compile "org.apache.commons:commons-lang3:$apacheCommonsLang3Version"
-	  compile "commons-io:commons-io:$apacheCommonsIOVersion"
-	  compile "commons-fileupload:commons-fileupload:$apacheCommonsFileuploadVersion"
-	  compile "commons-beanutils:commons-beanutils:$apacheCommonsBeanutilsVersion"
-	  compile "commons-collections:commons-collections:$apacheCommonsCollectionsVersion"
-	  compile "commons-configuration:commons-configuration:$apacheCommonsConfigurationVersion"
-	  compile "commons-pool:commons-pool:$apacheCommonsPoolVersion"
 	  compile "org.apache.httpcomponents:httpclient:$apacheHttpclientVersion"
 
 	  // Tomcat
