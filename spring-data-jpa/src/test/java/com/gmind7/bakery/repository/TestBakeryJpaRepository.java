@@ -16,33 +16,36 @@ import com.gmind7.bakery.domain.Bakery;
 
 @Slf4j
 @Transactional
-public class TestBakerJpaRepository extends AbstractApplicationTest {
+public class TestBakeryJpaRepository extends AbstractApplicationTest {
 	
 	@Autowired
-	private BakerJpaRepository repository;
+	private BakeryJpaRepository repository;
 	
-	private Baker baker;
+	private Bakery bakery;
 	
 	@Before
 	public void initBaker(){
+		Bakery bakery = new Bakery(1L);
+		bakery.setBakeryname("Gmind7BakeryHouse");
+		
 		Baker baker = new Baker(1L);
 		baker.setUsername("daesungkim");
 		baker.setFirstname("kim");
 		baker.setLastname("daesung");
 		
-		Bakery bakery = new Bakery(1L);
-		bakery.setBakeryname("Gmind7BakeryHouse");
-		baker.setBakery(bakery);
+		bakery.addBaker(baker);
 		
-		this.baker = repository.save(baker);
-		this.baker.getBakery();
+		this.bakery = repository.save(bakery);
+		
+		bakery.getBaker();
+		
 	}
 	
 	@Test
 	public void test(){
-		Baker result = repository.findOne(1L);
-		log.debug("Lazy GetBakery {}", result.getBakery());
-		assertEquals(baker, result);
+		Bakery result = repository.findOne(1L);
+		log.debug("Lazy GetBaker {}", result.getBaker());
+		assertEquals(bakery, result);
 	}
 	
 }

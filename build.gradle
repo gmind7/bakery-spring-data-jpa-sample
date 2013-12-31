@@ -190,7 +190,7 @@ configure(subprojects) { subproject ->
 	  runtime "cglib:cglib-nodep:$cglibVersion"
 	  compile "com.google.guava:guava:$guavaVersion"
 	  compile "joda-time:joda-time:$jodaVersion"
-	  //providedCompile "org.projectlombok:lombok:$lombokVersion"
+	  runtime "org.projectlombok:lombok:$lombokVersion"
 	  
 	  // Testing
       testCompile("org.springframework:spring-test:$springVersion") { force = true }

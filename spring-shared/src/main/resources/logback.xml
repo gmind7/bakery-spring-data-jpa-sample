@@ -9,6 +9,7 @@
 	<logger name="com.gmind7" level="DEBUG" />
 	<logger name="org.springframework" level="WARN" />
 	<logger name="org.hibernate" level="WARN" />
+	<logger name="org.hibernate.sql" level="DEBUG" />
 	<logger name="org.thymeleaf" level="WARN" />
 	<root level="info">
         <appender-ref ref="CONSOLE" />
