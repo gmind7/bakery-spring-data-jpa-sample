@@ -35,7 +35,7 @@ public class Bakery extends AbstractPersistable<Long> implements Serializable {
         this.setId(id);
     }
     
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="bakery")
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="bakery", orphanRemoval=true)
     private List<Baker> baker = Lists.newArrayList();
 	
 	@Column(unique = true)

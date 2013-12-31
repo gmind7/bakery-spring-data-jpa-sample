@@ -24,7 +24,7 @@ public class TestBakerJpaRepository extends AbstractApplicationTest {
 	private Baker baker;
 	
 	@Before
-	public void initBaker(){
+	public void before(){
 		Baker baker = new Baker(1L);
 		baker.setUsername("daesungkim");
 		baker.setFirstname("kim");
@@ -40,7 +40,7 @@ public class TestBakerJpaRepository extends AbstractApplicationTest {
 	
 	@Test
 	public void test(){
-		Baker result = repository.findOne(1L);
+		Baker result = repository.findOne(this.baker.getId());
 		log.debug("Lazy GetBakery {}", result.getBakery());
 		assertEquals(baker, result);
 	}

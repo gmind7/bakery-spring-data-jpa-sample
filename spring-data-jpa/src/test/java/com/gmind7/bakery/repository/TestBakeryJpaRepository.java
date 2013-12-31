@@ -24,7 +24,7 @@ public class TestBakeryJpaRepository extends AbstractApplicationTest {
 	private Bakery bakery;
 	
 	@Before
-	public void initBaker(){
+	public void before(){
 		Bakery bakery = new Bakery(1L);
 		bakery.setBakeryname("Gmind7BakeryHouse");
 		
@@ -36,14 +36,13 @@ public class TestBakeryJpaRepository extends AbstractApplicationTest {
 		bakery.addBaker(baker);
 		
 		this.bakery = repository.save(bakery);
-		
-		bakery.getBaker();
+		this.bakery.getBaker();
 		
 	}
 	
 	@Test
 	public void test(){
-		Bakery result = repository.findOne(1L);
+		Bakery result = repository.findOne(this.bakery.getId());
 		log.debug("Lazy GetBaker {}", result.getBaker());
 		assertEquals(bakery, result);
 	}
