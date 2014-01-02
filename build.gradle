@@ -117,9 +117,6 @@ configure(subprojects) { subproject ->
 	}
 
 	dependencies {
-	  // Project
-	  if(subproject.name!="spring-shared") compile project(":spring-shared")
-		
 	  // Gmind7
       compile("com.gmind7.bakery:spring-application-config:$bakeryVersion") { force = true }
 	  compile("com.gmind7.bakery:spring-database-config:$bakeryVersion") { force = true }
@@ -197,15 +194,23 @@ configure(subprojects) { subproject ->
     }
 }
 
-project("spring-web"){
+project("spring-data-jpa"){
+	dependencies {
+  	  // Project
+	  runtime project(":spring-shared")
+	}
+}
 
+project("spring-web"){
+	
     apply plugin: "war"
     apply plugin: "tomcat"
     apply plugin: "cargo"
 	
 	dependencies {
 	  // Project
-	  compile project(":spring-data-jpa")
+	  runtime project(":spring-shared")
+	  runtime project(":spring-data-jpa")
 	
       // Gmind7
       compile("com.gmind7.bakery:spring-web-api-config:$bakeryVersion") { force = true }

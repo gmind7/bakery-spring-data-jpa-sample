@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ehcache>
+<ehcache>
+
+	<defaultCache 
+	  maxElementsInMemory="10000"
+	  eternal="false"
+	  timeToIdleSeconds="3600"
+	  timeToLiveSeconds="3600">
+	</defaultCache>
+	
+	<cache
+      name="sample"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+	
+	<cache
+	  name="org.hibernate.cache.internal.StandardQueryCache"
+	  maxElementsInMemory="10000"
+	  eternal="false"
+	  timeToIdleSeconds="3600"
+	  timeToLiveSeconds="3600">
+	</cache>
+	
+	<cache
+	  name="org.hibernate.cache.spi.UpdateTimestampsCache"
+	  maxElementsInMemory="10000"
+	  eternal="true">
+	</cache>
+	
+</ehcache>
