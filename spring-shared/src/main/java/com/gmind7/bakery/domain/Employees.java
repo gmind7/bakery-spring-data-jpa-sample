@@ -1,6 +1,5 @@
 package com.gmind7.bakery.domain;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -27,9 +26,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude={"office","reportsToEmployee", "customers"})
 @ToString(callSuper=true, exclude={"office","reportsToEmployee", "customers"})
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "bakery")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Employees")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "employeeNumber")))
-public class Employees extends AbstractPersistable<Long> implements Serializable {
+public class Employees extends AbstractPersistable<Long> {
 	
 	private static final long serialVersionUID = 1L;
     

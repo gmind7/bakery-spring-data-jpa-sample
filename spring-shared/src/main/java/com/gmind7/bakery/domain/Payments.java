@@ -27,7 +27,7 @@ import com.gmind7.bakery.domain.ids.PaymentsIDs;
 @EqualsAndHashCode(exclude="customer")
 @ToString(exclude="customer")
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "bakery")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Payments")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
 public class Payments implements Persistable<PaymentsIDs> {
 	

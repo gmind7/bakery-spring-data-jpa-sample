@@ -1,6 +1,5 @@
 package com.gmind7.bakery.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -18,6 +17,7 @@ import lombok.ToString;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Data
@@ -25,9 +25,9 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude="customer")
 @ToString(callSuper=true, exclude="customer")
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "bakery")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Orders")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "orderNumber")))
-public class Orders extends AbstractPersistable<Long> implements Serializable {
+public class Orders extends AbstractPersistable<Long> {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -35,10 +35,13 @@ public class Orders extends AbstractPersistable<Long> implements Serializable {
         this.setId(id);
     }
     
+    @Type(type="java.sql.Timestamp")
     private Date orderDate;
     
+    @Type(type="java.sql.Timestamp")
     private Date requiredDate;
     
+    @Type(type="java.sql.Timestamp")
     private Date shippedDate;
     
     private String status;

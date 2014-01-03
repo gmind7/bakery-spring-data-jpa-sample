@@ -10,7 +10,63 @@
 	</defaultCache>
 	
 	<cache
-      name="bakery"
+      name="Customers"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="Employees"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="Offices"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="OrderDetails"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="Orders"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="Payments"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="ProductLines"
+      maxElementsInMemory="10000"
+      eternal="false"
+      timeToIdleSeconds="3600"
+      timeToLiveSeconds="3600">
+    </cache>
+    
+    <cache
+      name="Products"
       maxElementsInMemory="10000"
       eternal="false"
       timeToIdleSeconds="3600"

@@ -31,7 +31,7 @@ USE `classicmodels`;
 DROP TABLE IF EXISTS `customers`;
 
 CREATE TABLE `customers` (
-  `customerNumber` int(11) NOT NULL,
+  `customerNumber` int(11) AUTO_INCREMENT NOT NULL,
   `customerName` varchar(50) NOT NULL,
   `contactLastName` varchar(50) NOT NULL,
   `contactFirstName` varchar(50) NOT NULL,
@@ -62,7 +62,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `offices`;
 
 CREATE TABLE `offices` (
-  `officeCode` int(11) NOT NULL,
+  `officeCode` int(11) AUTO_INCREMENT NOT NULL,
   `city` varchar(50) NOT NULL,
   `phone` varchar(50) NOT NULL,
   `addressLine1` varchar(50) NOT NULL,
@@ -88,7 +88,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `employees`;
 
 CREATE TABLE `employees` (
-  `employeeNumber` int(11) NOT NULL,
+  `employeeNumber` int(11) AUTO_INCREMENT NOT NULL,
   `lastName` varchar(50) NOT NULL,
   `firstName` varchar(50) NOT NULL,
   `extension` varchar(10) NOT NULL,
@@ -117,7 +117,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `orderdetails`;
 
 CREATE TABLE `orderdetails` (
-  `orderNumber` int(11) NOT NULL,
+  `orderNumber` int(11) AUTO_INCREMENT NOT NULL,
   `productCode` varchar(15) NOT NULL,
   `quantityOrdered` int(11) NOT NULL,
   `priceEach` double NOT NULL,
@@ -141,7 +141,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `orders`;
 
 CREATE TABLE `orders` (
-  `orderNumber` int(11) NOT NULL,
+  `orderNumber` int(11) AUTO_INCREMENT NOT NULL,
   `orderDate` date NOT NULL,
   `requiredDate` date NOT NULL,
   `shippedDate` date DEFAULT NULL,
@@ -166,7 +166,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `payments`;
 
 CREATE TABLE `payments` (
-  `customerNumber` int(11) NOT NULL,
+  `customerNumber` int(11) AUTO_INCREMENT NOT NULL,
   `checkNumber` varchar(50) NOT NULL,
   `paymentDate` date NOT NULL,
   `amount` double NOT NULL,
