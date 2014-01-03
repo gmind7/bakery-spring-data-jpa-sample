@@ -29,4 +29,21 @@ public class TestOfficeRepository extends AbstractApplicationTest {
 		assertNotNull(office);
 	}
 	
+	@Test
+	public void save(){
+		
+		Offices office2 = new Offices();
+		office2.setCity("test");
+		office2.setPhone("test");
+		office2.setAddressLine1("test");
+		office2.setAddressLine2("test");
+		office2.setState("test");
+		office2.setCountry("test");
+		office2.setPostalCode("test");
+		office2.setTerritory("test");
+		
+		repository.save(office2);
+		
+	}
+	
 }
