@@ -161,6 +161,7 @@ configure(subprojects) { subproject ->
 	  // RDBMS
 	  runtime "org.hsqldb:hsqldb:$hsqldbVersion"
 	  compile "org.apache.tomcat:tomcat-jdbc:$apacheTomcatVersion"
+	  compile "mysql:mysql-connector-java:$mysqlConnectorVersion"
 			 
 	  // Hibernate
 	  compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
@@ -197,20 +198,19 @@ configure(subprojects) { subproject ->
 project("spring-data-jpa"){
 	dependencies {
   	  // Project
-	  runtime project(":spring-shared")
+	  compile project(":spring-shared")
 	}
 }
 
 project("spring-web"){
 	
-    apply plugin: "war"
+	apply plugin: "war"
     apply plugin: "tomcat"
     apply plugin: "cargo"
 	
 	dependencies {
 	  // Project
-	  runtime project(":spring-shared")
-	  runtime project(":spring-data-jpa")
+	  compile project(":spring-data-jpa")
 	
       // Gmind7
       compile("com.gmind7.bakery:spring-web-api-config:$bakeryVersion") { force = true }

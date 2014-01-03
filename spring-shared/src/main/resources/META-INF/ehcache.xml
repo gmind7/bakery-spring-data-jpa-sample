@@ -10,7 +10,7 @@
 	</defaultCache>
 	
 	<cache
-      name="sample"
+      name="bakery"
       maxElementsInMemory="10000"
       eternal="false"
       timeToIdleSeconds="3600"
