@@ -6,12 +6,27 @@
             <Pattern>%d %5p %50.50c{50}:%4L - %m%n</Pattern>
         </layout>
 	</appender>
-	<logger name="com.gmind7" level="DEBUG" />
-	<logger name="org.springframework" level="WARN" />
-	<logger name="org.hibernate" level="WARN" />
-	<logger name="org.hibernate.sql" level="DEBUG" />
-	<logger name="org.thymeleaf" level="WARN" />
+	
+	<logger name="com.gmind7" level="debug" />
+	
+	<logger name="org.springframework" level="warn"/>
+	    
+    <logger name="org.hibernate" level="warn"/>
+    
+    <logger name="org.hibernate.type" level="error"/>
+    
+    <logger name="org.infinispan" level="warn"/>
+    
+    <logger name="net.sf.ehcache" level="warn"/>
+    
+    <logger name="org.mybatis" level="warn"/>
+    
+    <logger name="org.mysema" level="warn"/>
+    
+    <logger name="org.thymeleaf" level="warn"/>
+	
 	<root level="info">
         <appender-ref ref="CONSOLE" />
 	</root>
+	
 </configuration>

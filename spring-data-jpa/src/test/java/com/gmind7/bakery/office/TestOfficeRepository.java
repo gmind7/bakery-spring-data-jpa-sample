@@ -19,31 +19,27 @@ public class TestOfficeRepository extends AbstractApplicationTest {
 	@Autowired
 	private OfficeRepository repository;
 	
-	private Offices office;
-	
 	@Test
-	public void test(){
-		office = repository.findOne(1L);
+	public void search(){
+		Offices office = repository.findOne(1L);
 		log.debug("office {}", office.toString());
 		log.debug("employees {}", office.getEmployees().toString());
 		assertNotNull(office);
 	}
 	
 	@Test
-	public void save(){
-		
-		Offices office2 = new Offices();
-		office2.setCity("test");
-		office2.setPhone("test");
-		office2.setAddressLine1("test");
-		office2.setAddressLine2("test");
-		office2.setState("test");
-		office2.setCountry("test");
-		office2.setPostalCode("test");
-		office2.setTerritory("test");
-		
-		repository.save(office2);
-		
+	public void saveNdelete(){
+		Offices office = new Offices();
+		office.setCity("city");
+		office.setPhone("phone");
+		office.setAddressLine1("address1");
+		office.setAddressLine2("address2");
+		office.setState("state");
+		office.setCountry("country");
+		office.setPostalCode("postalCode");
+		office.setTerritory("territory");
+		repository.save(office);
+		repository.delete(office.getId());
 	}
 	
 }
