@@ -9,11 +9,13 @@ ext {
 buildscript {
 	repositories {
 		jcenter()
+		mavenLocal()
 		maven { url "http://repo.spring.io/plugins-release" }		
 		maven { url "http://repo.spring.io/plugins-milestone" }
 		maven { url "http://repo.spring.io/plugins-snapshot" }
 	}
 	dependencies {
+		//classpath "com.gmind7.bakery:gmind7-gradle-plugin:0.0.1-RELEASE"
 		classpath "org.gradle.api.plugins:gradle-tomcat-plugin:$gradleTomcatPluginVersion"
 		classpath "org.gradle.api.plugins:gradle-cargo-plugin:$gradleCargoPluginVersion"
 		classpath "org.springframework.build.gradle:bundlor-plugin:$gradleSpringBundlorPluginVersion"
@@ -172,10 +174,7 @@ configure(subprojects) { subproject ->
 	  compile "org.mybatis:mybatis-spring:$mybatisSpringVersion"
 	  
 	  // QueryDSL
-	  compile "com.mysema.querydsl:querydsl-core:$queryDslVersion"
-	  compile "com.mysema.querydsl:querydsl-apt:$queryDslVersion"
-	  compile "com.mysema.querydsl:querydsl-jpa:$queryDslVersion"
-	  compile "com.mysema.querydsl:querydsl-sql:$queryDslVersion"
+	  compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
 	  
 	  // Ehcache
 	  compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
@@ -189,14 +188,22 @@ configure(subprojects) { subproject ->
 	  runtime "cglib:cglib-nodep:$cglibVersion"
 	  compile "com.google.guava:guava:$guavaVersion"
 	  compile "joda-time:joda-time:$jodaVersion"
-	  runtime "org.projectlombok:lombok:$lombokVersion"
+	  compile "org.projectlombok:lombok:$lombokVersion"
 	  
 	  // Testing
       testCompile("org.springframework:spring-test:$springVersion") { force = true }
     }
 }
 
-project("spring-data-jpa"){
+project("spring-shared"){
+    apply from: "${gradleScriptDir}/querydsl.gradle"
+    dependencies {
+	  // QueryDSL
+	  querydslapt  "com.mysema.querydsl:querydsl-apt:2.9.0"
+	}
+}
+
+project("spring-data-jpa"){	
 	dependencies {
   	  // Project
 	  compile project(":spring-shared")
