@@ -85,6 +85,7 @@ configure(allprojects) {
 	  runtime "ch.qos.logback:logback-classic:$logbackVersion"
 	  compile "org.slf4j:slf4j-api:$slf4jVersion"
 	  runtime "org.slf4j:jcl-over-slf4j:$slf4jVersion"
+	  compile "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:$log4j2Version"
 	  
 	  // Testing
 	  testCompile "junit:junit:$junitVersion"

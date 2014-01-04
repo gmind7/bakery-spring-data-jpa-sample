@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE logback>
 <configuration>
-	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>%d %5p %50.50c{50}:%4L - %m%n</Pattern>
         </layout>
@@ -13,8 +13,6 @@
 	    
     <logger name="org.hibernate" level="warn"/>
     
-    <logger name="org.hibernate.type" level="error"/>
-    
     <logger name="org.infinispan" level="warn"/>
     
     <logger name="net.sf.ehcache" level="warn"/>
@@ -24,9 +22,15 @@
     <logger name="org.mysema" level="warn"/>
     
     <logger name="org.thymeleaf" level="warn"/>
-	
+    
+    <logger name="jdbc" level="warn"/>
+    
+    <logger name="jdbc.sqlonly" level="info"/>
+    
+    <logger name="jdbc.resultsettable" level="info"/>
+    
 	<root level="info">
-        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="Console" />
 	</root>
 	
 </configuration>
