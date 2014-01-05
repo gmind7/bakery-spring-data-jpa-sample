@@ -1,7 +1,5 @@
 package com.gmind7.bakery.employee;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,7 +13,6 @@ import com.gmind7.bakery.domain.QEmployees;
 import com.gmind7.bakery.domain.QOffices;
 import com.mysema.query.SearchResults;
 import com.mysema.query.jpa.JPQLQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
 
 public class EmployeeRepositoryImpl extends QueryDslRepositorySupport implements EmployeeRepositoryCustom {
 	
