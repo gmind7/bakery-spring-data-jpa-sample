@@ -22,7 +22,7 @@ public class TestOrderRepository extends AbstractApplicationTest {
 	private Orders order;
 	
 	@Test
-	public void test(){
+	public void findOne(){
 		order = repository.findOne(10100L);
 		log.debug("customer {}", order.getCustomer().toString());
 		log.debug("order {}", order.toString());

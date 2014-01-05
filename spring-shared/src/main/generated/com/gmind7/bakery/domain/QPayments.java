@@ -16,9 +16,9 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QPayments extends EntityPathBase<Payments> {
 
-    private static final long serialVersionUID = 1069631308;
+    private static final long serialVersionUID = 1069631308L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QPayments payments = new QPayments("payments");
 
@@ -31,12 +31,11 @@ public class QPayments extends EntityPathBase<Payments> {
     public final DateTimePath<java.util.Date> paymentDate = createDateTime("paymentDate", java.util.Date.class);
 
     public QPayments(String variable) {
-        this(Payments.class, forVariable(variable), INITS);
+        this(Payments.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QPayments(Path<? extends Payments> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QPayments(PathMetadata<?> metadata) {
@@ -44,7 +43,7 @@ public class QPayments extends EntityPathBase<Payments> {
     }
 
     public QPayments(PathMetadata<?> metadata, PathInits inits) {
-        this(Payments.class, metadata, inits);
+        this(Payments.class,  metadata, inits);
     }
 
     public QPayments(Class<? extends Payments> type, PathMetadata<?> metadata, PathInits inits) {

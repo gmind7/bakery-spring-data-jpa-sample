@@ -16,7 +16,7 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QProductLines extends EntityPathBase<ProductLines> {
 
-    private static final long serialVersionUID = -1139253265;
+    private static final long serialVersionUID = -1139253265L;
 
     public static final QProductLines productLines = new QProductLines("productLines");
 
@@ -26,23 +26,22 @@ public class QProductLines extends EntityPathBase<ProductLines> {
 
     public final StringPath id = createString("id");
 
-    public final ArrayPath<Byte> image = createArray("image", Byte[].class);
+    public final NumberPath<Byte> image = createNumber("image", Byte.class);
 
-    public final ListPath<Products, QProducts> products = this.<Products, QProducts>createList("products", Products.class, QProducts.class, PathInits.DIRECT);
+    public final ListPath<Products, QProducts> products = this.<Products, QProducts>createList("products", Products.class, QProducts.class, PathInits.DIRECT2);
 
     public final StringPath textDescription = createString("textDescription");
 
     public QProductLines(String variable) {
-        super(ProductLines.class, forVariable(variable));
+        super(ProductLines.class,  forVariable(variable));
     }
 
-    @SuppressWarnings("all")
     public QProductLines(Path<? extends ProductLines> path) {
-        super((Class)path.getType(), path.getMetadata());
+        super(path.getType(), path.getMetadata());
     }
 
     public QProductLines(PathMetadata<?> metadata) {
-        super(ProductLines.class, metadata);
+        super(ProductLines.class,  metadata);
     }
 
 }

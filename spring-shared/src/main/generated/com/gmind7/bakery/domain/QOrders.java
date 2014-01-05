@@ -16,9 +16,9 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QOrders extends EntityPathBase<Orders> {
 
-    private static final long serialVersionUID = -879487292;
+    private static final long serialVersionUID = -879487292L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QOrders orders = new QOrders("orders");
 
@@ -41,12 +41,11 @@ public class QOrders extends EntityPathBase<Orders> {
     public final StringPath status = createString("status");
 
     public QOrders(String variable) {
-        this(Orders.class, forVariable(variable), INITS);
+        this(Orders.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QOrders(Path<? extends Orders> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QOrders(PathMetadata<?> metadata) {
@@ -54,7 +53,7 @@ public class QOrders extends EntityPathBase<Orders> {
     }
 
     public QOrders(PathMetadata<?> metadata, PathInits inits) {
-        this(Orders.class, metadata, inits);
+        this(Orders.class,  metadata, inits);
     }
 
     public QOrders(Class<? extends Orders> type, PathMetadata<?> metadata, PathInits inits) {

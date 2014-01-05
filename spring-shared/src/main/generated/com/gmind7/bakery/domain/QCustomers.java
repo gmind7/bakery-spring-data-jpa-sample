@@ -16,9 +16,9 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QCustomers extends EntityPathBase<Customers> {
 
-    private static final long serialVersionUID = 496912406;
+    private static final long serialVersionUID = 496912406L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QCustomers customers = new QCustomers("customers");
 
@@ -42,9 +42,9 @@ public class QCustomers extends EntityPathBase<Customers> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ListPath<Orders, QOrders> orders = this.<Orders, QOrders>createList("orders", Orders.class, QOrders.class, PathInits.DIRECT);
+    public final ListPath<Orders, QOrders> orders = this.<Orders, QOrders>createList("orders", Orders.class, QOrders.class, PathInits.DIRECT2);
 
-    public final ListPath<Payments, QPayments> payments = this.<Payments, QPayments>createList("payments", Payments.class, QPayments.class, PathInits.DIRECT);
+    public final ListPath<Payments, QPayments> payments = this.<Payments, QPayments>createList("payments", Payments.class, QPayments.class, PathInits.DIRECT2);
 
     public final StringPath phone = createString("phone");
 
@@ -57,12 +57,11 @@ public class QCustomers extends EntityPathBase<Customers> {
     public final StringPath state = createString("state");
 
     public QCustomers(String variable) {
-        this(Customers.class, forVariable(variable), INITS);
+        this(Customers.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QCustomers(Path<? extends Customers> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QCustomers(PathMetadata<?> metadata) {
@@ -70,7 +69,7 @@ public class QCustomers extends EntityPathBase<Customers> {
     }
 
     public QCustomers(PathMetadata<?> metadata, PathInits inits) {
-        this(Customers.class, metadata, inits);
+        this(Customers.class,  metadata, inits);
     }
 
     public QCustomers(Class<? extends Customers> type, PathMetadata<?> metadata, PathInits inits) {

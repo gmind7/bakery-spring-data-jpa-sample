@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ import com.gmind7.bakery.domain.ids.PaymentsIDs;
 @EqualsAndHashCode(exclude="customer")
 @ToString(exclude="customer")
 @Entity
+@Table(name="Payments")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Payments")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
 public class Payments implements Persistable<PaymentsIDs> {

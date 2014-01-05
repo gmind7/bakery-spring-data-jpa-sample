@@ -21,7 +21,7 @@ public class TestOfficeRepository extends AbstractApplicationTest {
 	private OfficeRepository repository;
 	
 	@Test
-	public void search(){
+	public void findOne(){
 		Offices office = repository.findOne(1L);
 		log.debug("office {}", office.toString());
 		log.debug("employees {}", office.getEmployees().toString());

@@ -23,7 +23,7 @@ public class TestPaymentRepository extends AbstractApplicationTest {
 	private Payments payment;
 	
 	@Test
-	public void test(){
+	public void findOne(){
 		payment = repository.findOne(new PaymentsIDs(103L, "HQ336336"));
 		log.debug("customer {}", payment.getCustomer().toString());
 		log.debug("payment {}", payment.toString());

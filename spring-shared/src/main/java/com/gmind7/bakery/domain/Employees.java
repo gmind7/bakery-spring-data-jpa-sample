@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,6 +27,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude={"office","reportsToEmployee", "customers"})
 @ToString(callSuper=true, exclude={"office","reportsToEmployee", "customers"})
 @Entity
+@Table(name = "Employees")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Employees")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "employeeNumber")))
 public class Employees extends AbstractPersistable<Long> {
@@ -44,9 +46,9 @@ public class Employees extends AbstractPersistable<Long> {
     
     private String email;
     
-    private int officeCode;
+    private long officeCode;
     
-    private int reportsTo;
+    private long reportsTo;
     
     private String jobTitle;
     

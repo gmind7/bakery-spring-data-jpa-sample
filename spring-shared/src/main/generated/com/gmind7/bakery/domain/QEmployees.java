@@ -16,15 +16,15 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QEmployees extends EntityPathBase<Employees> {
 
-    private static final long serialVersionUID = 1523170118;
+    private static final long serialVersionUID = 1523170118L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QEmployees employees = new QEmployees("employees");
 
     public final org.springframework.data.jpa.domain.QAbstractPersistable _super = new org.springframework.data.jpa.domain.QAbstractPersistable(this);
 
-    public final ListPath<Customers, QCustomers> customers = this.<Customers, QCustomers>createList("customers", Customers.class, QCustomers.class, PathInits.DIRECT);
+    public final ListPath<Customers, QCustomers> customers = this.<Customers, QCustomers>createList("customers", Customers.class, QCustomers.class, PathInits.DIRECT2);
 
     public final StringPath email = createString("email");
 
@@ -40,19 +40,18 @@ public class QEmployees extends EntityPathBase<Employees> {
 
     public final QOffices office;
 
-    public final NumberPath<Integer> officeCode = createNumber("officeCode", Integer.class);
+    public final NumberPath<Long> officeCode = createNumber("officeCode", Long.class);
 
-    public final NumberPath<Integer> reportsTo = createNumber("reportsTo", Integer.class);
+    public final NumberPath<Long> reportsTo = createNumber("reportsTo", Long.class);
 
     public final QEmployees reportsToEmployee;
 
     public QEmployees(String variable) {
-        this(Employees.class, forVariable(variable), INITS);
+        this(Employees.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QEmployees(Path<? extends Employees> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QEmployees(PathMetadata<?> metadata) {
@@ -60,7 +59,7 @@ public class QEmployees extends EntityPathBase<Employees> {
     }
 
     public QEmployees(PathMetadata<?> metadata, PathInits inits) {
-        this(Employees.class, metadata, inits);
+        this(Employees.class,  metadata, inits);
     }
 
     public QEmployees(Class<? extends Employees> type, PathMetadata<?> metadata, PathInits inits) {

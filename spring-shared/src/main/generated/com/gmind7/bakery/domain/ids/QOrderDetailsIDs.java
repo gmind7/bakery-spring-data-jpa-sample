@@ -15,7 +15,7 @@ import com.mysema.query.types.Path;
 @Generated("com.mysema.query.codegen.EmbeddableSerializer")
 public class QOrderDetailsIDs extends BeanPath<OrderDetailsIDs> {
 
-    private static final long serialVersionUID = -1722235281;
+    private static final long serialVersionUID = -1722235281L;
 
     public static final QOrderDetailsIDs orderDetailsIDs = new QOrderDetailsIDs("orderDetailsIDs");
 
@@ -24,16 +24,15 @@ public class QOrderDetailsIDs extends BeanPath<OrderDetailsIDs> {
     public final StringPath productCode = createString("productCode");
 
     public QOrderDetailsIDs(String variable) {
-        super(OrderDetailsIDs.class, forVariable(variable));
+        super(OrderDetailsIDs.class,  forVariable(variable));
     }
 
-    @SuppressWarnings("all")
     public QOrderDetailsIDs(Path<? extends OrderDetailsIDs> path) {
-        super((Class)path.getType(), path.getMetadata());
+        super(path.getType(), path.getMetadata());
     }
 
     public QOrderDetailsIDs(PathMetadata<?> metadata) {
-        super(OrderDetailsIDs.class, metadata);
+        super(OrderDetailsIDs.class,  metadata);
     }
 
 }

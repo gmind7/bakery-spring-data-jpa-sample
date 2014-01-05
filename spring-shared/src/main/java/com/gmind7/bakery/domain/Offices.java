@@ -7,6 +7,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude="employees")
 @ToString(callSuper=true, exclude="employees")
 @Entity
+@Table(name = "Offices")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Offices")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "officeCode")))
 public class Offices extends AbstractPersistable<Long> {

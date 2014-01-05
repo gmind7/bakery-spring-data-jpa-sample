@@ -23,7 +23,7 @@ public class TestOrderDetailRepository extends AbstractApplicationTest {
 	private OrderDetails orderDetail;
 	
 	@Test
-	public void test(){
+	public void findOne(){
 		orderDetail = repository.findOne(new OrderDetailsIDs(10100L, "S18_1749"));
 		log.debug("order {}", orderDetail.getOrder().toString());
 		log.debug("product {}", orderDetail.getProduct().toString());

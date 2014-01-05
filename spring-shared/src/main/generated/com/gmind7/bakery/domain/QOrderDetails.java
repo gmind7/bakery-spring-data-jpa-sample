@@ -16,9 +16,9 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QOrderDetails extends EntityPathBase<OrderDetails> {
 
-    private static final long serialVersionUID = 311812019;
+    private static final long serialVersionUID = 311812019L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QOrderDetails orderDetails = new QOrderDetails("orderDetails");
 
@@ -35,12 +35,11 @@ public class QOrderDetails extends EntityPathBase<OrderDetails> {
     public final NumberPath<Integer> quantityOrdered = createNumber("quantityOrdered", Integer.class);
 
     public QOrderDetails(String variable) {
-        this(OrderDetails.class, forVariable(variable), INITS);
+        this(OrderDetails.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QOrderDetails(Path<? extends OrderDetails> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QOrderDetails(PathMetadata<?> metadata) {
@@ -48,7 +47,7 @@ public class QOrderDetails extends EntityPathBase<OrderDetails> {
     }
 
     public QOrderDetails(PathMetadata<?> metadata, PathInits inits) {
-        this(OrderDetails.class, metadata, inits);
+        this(OrderDetails.class,  metadata, inits);
     }
 
     public QOrderDetails(Class<? extends OrderDetails> type, PathMetadata<?> metadata, PathInits inits) {

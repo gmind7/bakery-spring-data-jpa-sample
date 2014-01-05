@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ import com.gmind7.bakery.domain.ids.OrderDetailsIDs;
 @EqualsAndHashCode(exclude={"order","product"})
 @ToString(exclude={"order","product"})
 @Entity
+@Table(name="OrderDetails")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "OrderDetails")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "orderNumber")))
 public class OrderDetails implements Persistable<OrderDetailsIDs> {

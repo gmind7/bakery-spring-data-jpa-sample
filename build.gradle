@@ -122,7 +122,7 @@ configure(subprojects) { subproject ->
 	dependencies {
 	  // Gmind7
       compile("com.gmind7.bakery:spring-application-config:$bakeryVersion") { force = true }
-	  compile("com.gmind7.bakery:spring-database-config:$bakeryVersion") { force = true }
+	  compile("com.gmind7.bakery:spring-database-config:$bakeryDatabaseConfigVersion") { force = true }
 	  compile("com.gmind7.bakery:spring-ehcache-config:$bakeryVersion") { force = true }
   
 	  // Spring
@@ -138,7 +138,6 @@ configure(subprojects) { subproject ->
 	  compile("org.springframework:spring-orm:$springVersion") { force = true }
 	  compile("org.springframework:spring-jdbc:$springVersion") { force = true }
 	  compile("org.springframework.data:spring-data-jpa:$springDataJpaVersion") { force=true }
-	  compile("org.springframework.data:spring-data-jdbc-core:$springDataJdbcVersion") { force=true }
 	  
 	  // AspectJ
 	  compile "org.aspectj:aspectjrt:$aspectjVersion"
@@ -174,7 +173,7 @@ configure(subprojects) { subproject ->
 	  compile "org.mybatis:mybatis-spring:$mybatisSpringVersion"
 	  
 	  // QueryDSL
-	  compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
+	  compile "com.mysema.querydsl:querydsl-apt:$querydslVersion"
 	  
 	  // Ehcache
 	  compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
@@ -199,7 +198,7 @@ project("spring-shared"){
     apply from: "${gradleScriptDir}/querydsl.gradle"
     dependencies {
 	  // QueryDSL
-	  querydslapt  "com.mysema.querydsl:querydsl-apt:2.9.0"
+	  querydslapt "com.mysema.querydsl:querydsl-apt:$querydslVersion"
 	}
 }
 

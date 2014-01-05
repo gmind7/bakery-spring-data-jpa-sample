@@ -22,7 +22,7 @@ public class TestProductLineRepository extends AbstractApplicationTest {
 	private ProductLines productLine;
 	
 	@Test
-	public void test(){
+	public void findOne(){
 		productLine = repository.findOne("Classic Cars");
 		log.debug("productLine {}", productLine.toString());
 		log.debug("products {}", productLine.getProducts().toString());

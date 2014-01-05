@@ -16,7 +16,7 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QOffices extends EntityPathBase<Offices> {
 
-    private static final long serialVersionUID = -1835900616;
+    private static final long serialVersionUID = -1835900616L;
 
     public static final QOffices offices = new QOffices("offices");
 
@@ -30,7 +30,7 @@ public class QOffices extends EntityPathBase<Offices> {
 
     public final StringPath country = createString("country");
 
-    public final ListPath<Employees, QEmployees> employees = this.<Employees, QEmployees>createList("employees", Employees.class, QEmployees.class, PathInits.DIRECT);
+    public final ListPath<Employees, QEmployees> employees = this.<Employees, QEmployees>createList("employees", Employees.class, QEmployees.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
@@ -43,16 +43,15 @@ public class QOffices extends EntityPathBase<Offices> {
     public final StringPath territory = createString("territory");
 
     public QOffices(String variable) {
-        super(Offices.class, forVariable(variable));
+        super(Offices.class,  forVariable(variable));
     }
 
-    @SuppressWarnings("all")
     public QOffices(Path<? extends Offices> path) {
-        super((Class)path.getType(), path.getMetadata());
+        super(path.getType(), path.getMetadata());
     }
 
     public QOffices(PathMetadata<?> metadata) {
-        super(Offices.class, metadata);
+        super(Offices.class,  metadata);
     }
 
 }

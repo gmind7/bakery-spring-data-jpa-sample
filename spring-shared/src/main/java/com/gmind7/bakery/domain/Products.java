@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +25,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude={"productLine", "orderDetails"})
 @ToString(callSuper=true, exclude={"productLine", "orderDetails"})
 @Entity
+@Table(name="Products")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Products")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "productCode")))
 public class Products extends AbstractPersistable<String> {

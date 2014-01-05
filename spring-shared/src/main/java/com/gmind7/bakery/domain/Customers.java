@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude={"salesRepEmployee", "orders", "payments"})
 @ToString(callSuper=true, exclude={"salesRepEmployee", "orders", "payments"})
 @Entity
+@Table(name = "Customers")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Customers")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
 public class Customers extends AbstractPersistable<Long> {

@@ -22,7 +22,7 @@ public class TestCustomerRepository extends AbstractApplicationTest {
 	private Customers customer;
 	
 	@Test
-	public void test(){
+	public void findOne(){
 		customer = repository.findOne(103L);
 		log.debug("customer {}", customer.toString());
 		log.debug("salesRepEmployee {}", customer.getSalesRepEmployee().toString());

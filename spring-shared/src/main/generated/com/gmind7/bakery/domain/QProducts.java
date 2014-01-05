@@ -16,9 +16,9 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QProducts extends EntityPathBase<Products> {
 
-    private static final long serialVersionUID = -1316812413;
+    private static final long serialVersionUID = -1316812413L;
 
-    private static final PathInits INITS = PathInits.DIRECT;
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QProducts products = new QProducts("products");
 
@@ -30,7 +30,7 @@ public class QProducts extends EntityPathBase<Products> {
 
     public final NumberPath<Double> MSRP = createNumber("MSRP", Double.class);
 
-    public final ListPath<OrderDetails, QOrderDetails> orderDetails = this.<OrderDetails, QOrderDetails>createList("orderDetails", OrderDetails.class, QOrderDetails.class, PathInits.DIRECT);
+    public final ListPath<OrderDetails, QOrderDetails> orderDetails = this.<OrderDetails, QOrderDetails>createList("orderDetails", OrderDetails.class, QOrderDetails.class, PathInits.DIRECT2);
 
     public final StringPath productDescription = createString("productDescription");
 
@@ -45,12 +45,11 @@ public class QProducts extends EntityPathBase<Products> {
     public final NumberPath<Integer> quantityInStock = createNumber("quantityInStock", Integer.class);
 
     public QProducts(String variable) {
-        this(Products.class, forVariable(variable), INITS);
+        this(Products.class,  forVariable(variable), INITS);
     }
 
-    @SuppressWarnings("all")
     public QProducts(Path<? extends Products> path) {
-        this((Class)path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
+        this(path.getType(), path.getMetadata(), path.getMetadata().isRoot() ? INITS : PathInits.DEFAULT);
     }
 
     public QProducts(PathMetadata<?> metadata) {
@@ -58,7 +57,7 @@ public class QProducts extends EntityPathBase<Products> {
     }
 
     public QProducts(PathMetadata<?> metadata, PathInits inits) {
-        this(Products.class, metadata, inits);
+        this(Products.class,  metadata, inits);
     }
 
     public QProducts(Class<? extends Products> type, PathMetadata<?> metadata, PathInits inits) {

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude="products")
 @ToString(callSuper=true, exclude="products")
 @Entity
+@Table(name="ProductLines")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ProductLines")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "productLine")))
 public class ProductLines extends AbstractPersistable<String> {
@@ -43,7 +45,7 @@ public class ProductLines extends AbstractPersistable<String> {
     
     @Lob 
     @Basic(fetch=FetchType.LAZY)
-    private byte[] image;
+    private byte image;
     
     @OneToMany(mappedBy = "productLine")
 	private List<Products> products;
