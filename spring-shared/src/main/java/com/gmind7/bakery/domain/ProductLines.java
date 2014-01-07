@@ -45,7 +45,7 @@ public class ProductLines extends AbstractPersistable<String> {
     
     @Lob 
     @Basic(fetch=FetchType.LAZY)
-    private byte image;
+    private String image;
     
     @OneToMany(mappedBy = "productLine")
 	private List<Products> products;
