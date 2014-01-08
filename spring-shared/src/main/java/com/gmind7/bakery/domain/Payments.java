@@ -1,5 +1,6 @@
 package com.gmind7.bakery.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -19,7 +20,6 @@ import lombok.ToString;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.springframework.data.domain.Persistable;
 
 import com.gmind7.bakery.domain.ids.PaymentsIDs;
 
@@ -31,7 +31,7 @@ import com.gmind7.bakery.domain.ids.PaymentsIDs;
 @Table(name="Payments")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Payments")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
-public class Payments implements Persistable<PaymentsIDs> {
+public class Payments implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
     
@@ -42,9 +42,8 @@ public class Payments implements Persistable<PaymentsIDs> {
 	
 	private double amount;
 	
-	@Override
 	public boolean isNew() {
-		return null == getId();
+		return null == id;
 	}
 	
 	@ManyToOne(fetch=FetchType.LAZY)
