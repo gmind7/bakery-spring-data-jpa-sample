@@ -23,11 +23,9 @@ public class TestEmployeeRepository extends AbstractApplicationTest {
 	@Autowired
 	private EmployeeRepository repository;
 	
-	private Employees employee;
-	
 	@Test
 	public void findOne(){
-		employee = repository.findOne(1002L);
+		Employees employee = repository.findOne(1002L);
 		log.debug("office {}", employee.getOffice());
 		log.debug("reportsToEmployee {}", employee.getReportsToEmployee().toString());
 		log.debug("customers {}", employee.getCustomers().toString());

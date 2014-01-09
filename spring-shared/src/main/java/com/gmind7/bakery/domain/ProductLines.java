@@ -26,7 +26,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @EqualsAndHashCode(callSuper=true, exclude="products")
 @ToString(callSuper=true, exclude="products")
 @Entity
-@Table(name="ProductLines")
+@Table(name="productlines")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ProductLines")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "productLine")))
 public class ProductLines extends AbstractPersistable<String> {

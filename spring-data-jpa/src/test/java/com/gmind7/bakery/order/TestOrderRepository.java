@@ -19,11 +19,9 @@ public class TestOrderRepository extends AbstractApplicationTest {
 	@Autowired
 	private OrderRepository repository;
 	
-	private Orders order;
-	
 	@Test
 	public void findOne(){
-		order = repository.findOne(10100L);
+		Orders order = repository.findOne(10100L);
 		log.debug("customer {}", order.getCustomer().toString());
 		log.debug("order {}", order.toString());
 		assertNotNull(order);

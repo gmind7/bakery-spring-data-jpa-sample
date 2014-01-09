@@ -20,11 +20,9 @@ public class TestPaymentRepository extends AbstractApplicationTest {
 	@Autowired
 	private PaymentRepository repository;
 	
-	private Payments payment;
-	
 	@Test
 	public void findOne(){
-		payment = repository.findOne(new PaymentsIDs(103L, "HQ336336"));
+		Payments payment = repository.findOne(new PaymentsIDs(103L, "HQ336336"));
 		log.debug("customer {}", payment.getCustomer().toString());
 		log.debug("payment {}", payment.toString());
 		assertNotNull(payment);

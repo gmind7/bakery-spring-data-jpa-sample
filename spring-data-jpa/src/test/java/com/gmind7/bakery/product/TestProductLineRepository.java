@@ -19,11 +19,9 @@ public class TestProductLineRepository extends AbstractApplicationTest {
 	@Autowired
 	private ProductLineRepository repository;
 	
-	private ProductLines productLine;
-	
 	@Test
 	public void findOne(){
-		productLine = repository.findOne("Classic Cars");
+		ProductLines productLine = repository.findOne("Classic Cars");
 		log.debug("productLine {}", productLine.toString());
 		log.debug("products {}", productLine.getProducts().toString());
 		assertNotNull(productLine);

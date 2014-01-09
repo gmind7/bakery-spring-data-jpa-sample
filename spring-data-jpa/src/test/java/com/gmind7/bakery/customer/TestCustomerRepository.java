@@ -19,11 +19,9 @@ public class TestCustomerRepository extends AbstractApplicationTest {
 	@Autowired
 	private CustomerRepository repository;
 	
-	private Customers customer;
-	
 	@Test
 	public void findOne(){
-		customer = repository.findOne(103L);
+		Customers customer = repository.findOne(103L);
 		log.debug("customer {}", customer.toString());
 		log.debug("salesRepEmployee {}", customer.getSalesRepEmployee().toString());
 		log.debug("orders {}", customer.getOrders().toString());

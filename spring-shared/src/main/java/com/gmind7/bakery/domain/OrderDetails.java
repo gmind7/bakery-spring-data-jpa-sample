@@ -27,7 +27,7 @@ import com.gmind7.bakery.domain.ids.OrderDetailsIDs;
 @EqualsAndHashCode(exclude={"order","product"})
 @ToString(exclude={"order","product"})
 @Entity
-@Table(name="OrderDetails")
+@Table(name="orderdetails")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "OrderDetails")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "orderNumber")))
 public class OrderDetails implements Serializable {

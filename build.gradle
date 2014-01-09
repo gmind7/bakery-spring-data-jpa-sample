@@ -37,15 +37,20 @@ task wrapper(type: Wrapper) {
 														"set GRADLE_OPTS=$gradleBatOpts %GRADLE_OPTS%\nset DEFAULT_JVM_OPTS=")
 	}
 }
-
-
-
+/*
+task testReport(type: TestReport) {
+	destinationDir = file("$buildDir/reports/allTests")
+	// Include the results from the `test` task in all subprojects
+	reportOn subprojects*.test
+}
+*/
 configure(allprojects) {
 	
 	apply plugin: "java"
 	apply plugin: "idea"	
 	apply plugin: "maven"
 	apply plugin: "eclipse-wtp"
+	apply from: "${gradleScriptDir}/tests.gradle"
 	apply from: "${gradleScriptDir}/maven.gradle"
 	apply from: "${gradleScriptDir}/ide.gradle"
     

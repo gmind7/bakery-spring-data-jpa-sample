@@ -19,11 +19,9 @@ public class TestProductRepository extends AbstractApplicationTest {
 	@Autowired
 	private ProductRepository repository;
 	
-	private Products product;
-	
 	@Test
 	public void findOne(){
-		product = repository.findOne("S10_1678");
+		Products product = repository.findOne("S10_1678");
 		log.debug("product {}", product.toString());
 		log.debug("productLine {}", product.getProductLine().toString());
 		log.debug("orderDetails {}", product.getOrderDetails().toString());

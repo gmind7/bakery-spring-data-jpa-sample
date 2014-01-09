@@ -1,0 +1,60 @@
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'jacoco'
+//apply plugin: 'checkstyle'
+
+//checkstyle {
+//	configFile = new File(rootDir, "config/checkstyle.xml")
+//	ignoreFailures = true
+//	//sourceSets = [sourceSets.main, sourceSets.test, sourceSets.integrationTest]
+//	sourceSets = [sourceSets.main]
+//}
+findbugs {
+	ignoreFailures = true
+	sourceSets = [sourceSets.main]
+}
+
+pmd {
+	ruleSets = ["basic", "braces", "design"]
+	ignoreFailures = true
+}
+
+jacoco {
+  toolVersion = "0.6.2.201302030002"
+  reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+test {
+	jacoco {
+		//destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+		destinationFile = file("$buildDir/jacoco/test.exec")
+		//classDumpFile = file("$buildDir/jacoco/classpathdumps")
+		classDumpFile = file("$buildDir/build/classes/test")
+	}
+}
+
+jacocoTestReport {
+	 group = "Reporting"
+	 description = "Generate Jacoco coverage reports after running tests."
+	 reports {
+			xml{
+				enabled true
+				destination "${buildDir}/reports/jacoco/jacoco.xml"
+			}
+			csv.enabled false
+			html{
+				enabled true
+				destination "${buildDir}/jacocoHtml"
+			}
+	}
+	additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
+	//additionalSourceDirs = files([sourceSets.main.allJava.srcDirs, xxxx, 'xxxxyyyy' ])
+}
+
+test {
+	reports.html.enabled = false
+}
+
+//task testReport(type: TestReport) {
+//  destinationDir = file("$buildDir/reports/allTests")
+//}

@@ -20,11 +20,9 @@ public class TestOrderDetailRepository extends AbstractApplicationTest {
 	@Autowired
 	private OrderDetailRepository repository;
 	
-	private OrderDetails orderDetail;
-	
 	@Test
 	public void findOne(){
-		orderDetail = repository.findOne(new OrderDetailsIDs(10100L, "S18_1749"));
+		OrderDetails orderDetail = repository.findOne(new OrderDetailsIDs(10100L, "S18_1749"));
 		log.debug("order {}", orderDetail.getOrder().toString());
 		log.debug("product {}", orderDetail.getProduct().toString());
 		log.debug("orderDetail {}", orderDetail.toString());

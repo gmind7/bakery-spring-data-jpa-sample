@@ -28,7 +28,7 @@ import com.gmind7.bakery.domain.ids.PaymentsIDs;
 @EqualsAndHashCode(exclude="customer")
 @ToString(exclude="customer")
 @Entity
-@Table(name="Payments")
+@Table(name="payments")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Payments")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
 public class Payments implements Serializable {
