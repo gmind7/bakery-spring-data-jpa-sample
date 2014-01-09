@@ -17,7 +17,7 @@ public interface OfficeRepository extends PagingAndSortingRepository<Offices, Lo
 	
 	List<Offices> findBycountry(String country);
 	
-	@Query(value = "SELECT * FROM Offices WHERE city = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM offices WHERE city = ?1", nativeQuery = true)
 	List<Offices> findByCity(String city);
 	
 	@Modifying
