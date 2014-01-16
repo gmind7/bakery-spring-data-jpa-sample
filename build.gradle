@@ -90,12 +90,12 @@ configure(allprojects) {
 	  maven { url "http://repo.spring.io/libs-milestone" }
 	  maven { url "http://repo.spring.io/libs-snapshot" }
 	  maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
-	  maven { url "https://raw.github.com/gmind7/gmind7.maven.repository/master/releases" }
+	  maven { url "https://raw.github.com/gmind7/gmind7.maven.repository/master/lib-releases" }
 	}
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://F:/Git/gmind7.maven.repository/releases")
+	    repository(url: "file://F:/Git/gmind7.maven.repository/lib-releases")
 	  }
     }
 	
@@ -138,9 +138,9 @@ configure(subprojects) { subproject ->
 
 	dependencies {
 	  // Gmind7
-      compile("com.gmind7.bakery:spring-application-config:$bakeryVersion") { force = true }
+      compile("com.gmind7.bakery:spring-application-config:$bakerySpringApplicationVersion") { force = true }
 	  compile("com.gmind7.bakery:spring-database-config:$bakeryDatabaseConfigVersion") { force = true }
-	  compile("com.gmind7.bakery:spring-ehcache-config:$bakeryVersion") { force = true }
+	  compile("com.gmind7.bakery:spring-ehcache-config:$bakerySpringEhcacheVersion") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
@@ -191,6 +191,7 @@ configure(subprojects) { subproject ->
 	  
 	  // QueryDSL
 	  compile "com.mysema.querydsl:querydsl-apt:$querydslVersion"
+	  compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
 	  
 	  // Ehcache
 	  compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
@@ -238,8 +239,8 @@ project("spring-web"){
 	  compile project(":spring-data-jpa")
 	
       // Gmind7
-      compile("com.gmind7.bakery:spring-web-api-config:$bakeryVersion") { force = true }
-      compile("com.gmind7.bakery:spring-web-support:$bakeryVersion") { force = true }
+      compile("com.gmind7.bakery:spring-web-api-config:$bakerySpringWebApiVersion") { force = true }
+      compile("com.gmind7.bakery:spring-web-support:$bakerySpringWebSupportVersion") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
