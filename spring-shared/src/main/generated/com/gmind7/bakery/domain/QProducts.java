@@ -16,7 +16,7 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QProducts extends EntityPathBase<Products> {
 
-    private static final long serialVersionUID = -1316812413L;
+    private static final long serialVersionUID = -1316812413;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
@@ -45,7 +45,7 @@ public class QProducts extends EntityPathBase<Products> {
     public final NumberPath<Integer> quantityInStock = createNumber("quantityInStock", Integer.class);
 
     public QProducts(String variable) {
-        this(Products.class,  forVariable(variable), INITS);
+        this(Products.class, forVariable(variable), INITS);
     }
 
     public QProducts(Path<? extends Products> path) {
@@ -57,7 +57,7 @@ public class QProducts extends EntityPathBase<Products> {
     }
 
     public QProducts(PathMetadata<?> metadata, PathInits inits) {
-        this(Products.class,  metadata, inits);
+        this(Products.class, metadata, inits);
     }
 
     public QProducts(Class<? extends Products> type, PathMetadata<?> metadata, PathInits inits) {

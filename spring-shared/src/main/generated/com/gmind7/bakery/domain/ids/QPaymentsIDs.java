@@ -15,7 +15,7 @@ import com.mysema.query.types.Path;
 @Generated("com.mysema.query.codegen.EmbeddableSerializer")
 public class QPaymentsIDs extends BeanPath<PaymentsIDs> {
 
-    private static final long serialVersionUID = 1750810934L;
+    private static final long serialVersionUID = 1750810934;
 
     public static final QPaymentsIDs paymentsIDs = new QPaymentsIDs("paymentsIDs");
 
@@ -24,7 +24,7 @@ public class QPaymentsIDs extends BeanPath<PaymentsIDs> {
     public final NumberPath<Long> customerNumber = createNumber("customerNumber", Long.class);
 
     public QPaymentsIDs(String variable) {
-        super(PaymentsIDs.class,  forVariable(variable));
+        super(PaymentsIDs.class, forVariable(variable));
     }
 
     public QPaymentsIDs(Path<? extends PaymentsIDs> path) {
@@ -32,7 +32,7 @@ public class QPaymentsIDs extends BeanPath<PaymentsIDs> {
     }
 
     public QPaymentsIDs(PathMetadata<?> metadata) {
-        super(PaymentsIDs.class,  metadata);
+        super(PaymentsIDs.class, metadata);
     }
 
 }

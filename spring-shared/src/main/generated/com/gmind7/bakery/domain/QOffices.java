@@ -16,7 +16,7 @@ import com.mysema.query.types.path.PathInits;
 @Generated("com.mysema.query.codegen.EntitySerializer")
 public class QOffices extends EntityPathBase<Offices> {
 
-    private static final long serialVersionUID = -1835900616L;
+    private static final long serialVersionUID = -1835900616;
 
     public static final QOffices offices = new QOffices("offices");
 
@@ -43,7 +43,7 @@ public class QOffices extends EntityPathBase<Offices> {
     public final StringPath territory = createString("territory");
 
     public QOffices(String variable) {
-        super(Offices.class,  forVariable(variable));
+        super(Offices.class, forVariable(variable));
     }
 
     public QOffices(Path<? extends Offices> path) {
@@ -51,7 +51,7 @@ public class QOffices extends EntityPathBase<Offices> {
     }
 
     public QOffices(PathMetadata<?> metadata) {
-        super(Offices.class,  metadata);
+        super(Offices.class, metadata);
     }
 
 }

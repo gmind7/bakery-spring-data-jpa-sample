@@ -55,6 +55,7 @@ configure(allprojects) {
 	apply from: "${gradleScriptDir}/ide.gradle"
     
 	group = "${group}"
+	version = "0.0.1-RELEASE"
 	 
 	configurations {
 	  all {
@@ -62,7 +63,7 @@ configure(allprojects) {
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 		exclude group: "commons-logging"
 		exclude module: "slf4j-log4j12"
-		exclude module: "hibernate-jpa-2.0-api"
+		exclude module: "hibernate-jpa-2.0-api"		
 		crosstest
 		testCompile.extendsFrom crosstest  // testCompile이 crosstest에 의존하게 변경
 	  }
@@ -95,7 +96,7 @@ configure(allprojects) {
 	  
     uploadArchives {
 	  repositories.mavenDeployer {
-	    repository(url: "file://F:/Git/gmind7.maven.repository/lib-releases")
+	    repository(url: "file://D:/Git/gmind7.maven.repository/lib-releases")
 	  }
     }
 	
@@ -138,9 +139,9 @@ configure(subprojects) { subproject ->
 
 	dependencies {
 	  // Gmind7
-      compile("com.gmind7.bakery:spring-application-config:$bakerySpringApplicationVersion") { force = true }
-	  compile("com.gmind7.bakery:spring-database-config:$bakeryDatabaseConfigVersion") { force = true }
-	  compile("com.gmind7.bakery:spring-ehcache-config:$bakerySpringEhcacheVersion") { force = true }
+      compile("com.gmind7.bakery:bakery-spring-application-config:$bakerySpringApplicationVersion@jar") { force = true }
+	  compile("com.gmind7.bakery:bakery-spring-database-config:$bakeryDatabaseConfigVersion@jar") { force = true }
+	  compile("com.gmind7.bakery:bakery-spring-ehcache-config:$bakerySpringEhcacheVersion@jar") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
@@ -239,8 +240,8 @@ project("spring-web"){
 	  compile project(":spring-data-jpa")
 	
       // Gmind7
-      compile("com.gmind7.bakery:spring-web-api-config:$bakerySpringWebApiVersion") { force = true }
-      compile("com.gmind7.bakery:spring-web-support:$bakerySpringWebSupportVersion") { force = true }
+      compile("com.gmind7.bakery:bakery-spring-web-api-config:$bakerySpringWebApiVersion") { force = true }
+      compile("com.gmind7.bakery:bakery-spring-web-support:$bakerySpringWebSupportVersion") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-web:$springVersion") { force = true }
