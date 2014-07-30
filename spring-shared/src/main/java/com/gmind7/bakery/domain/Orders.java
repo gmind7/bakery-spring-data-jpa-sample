@@ -1,15 +1,9 @@
 package com.gmind7.bakery.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +21,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @ToString(callSuper=true, exclude="customer")
 @Entity
 @Table(name="orders")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Orders")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "Orders")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "orderNumber")))
 public class Orders extends AbstractPersistable<Long> {
 	

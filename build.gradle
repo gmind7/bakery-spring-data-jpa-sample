@@ -62,8 +62,9 @@ configure(allprojects) {
 		//Hack to let Gradle pickup latest SNAPSHOTS
 		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 		exclude group: "commons-logging"
+          exclude group: "org.apache.avro"
 		exclude module: "slf4j-log4j12"
-		exclude module: "hibernate-jpa-2.0-api"		
+		exclude module: "hibernate-jpa-2.0-api"
 		crosstest
 		testCompile.extendsFrom crosstest  // testCompile이 crosstest에 의존하게 변경
 	  }
@@ -82,7 +83,7 @@ configure(allprojects) {
 	
 	[compileJava, compileTestJava, javadoc]*.options*.encoding = "UTF-8"
   
-	sourceSets.test.resources.srcDirs = ["src/test/java", "src/test/resources"]
+	//sourceSets.test.resources.srcDirs = ["src/test/java", "src/test/resources"]
   
   	repositories {
 	  mavenLocal()
@@ -140,8 +141,8 @@ configure(subprojects) { subproject ->
 	dependencies {
 	  // Gmind7
       compile("com.gmind7.bakery:bakery-spring-application-config:$bakerySpringApplicationVersion@jar") { force = true }
-	  compile("com.gmind7.bakery:bakery-spring-database-config:$bakeryDatabaseConfigVersion@jar") { force = true }
-	  compile("com.gmind7.bakery:bakery-spring-ehcache-config:$bakerySpringEhcacheVersion@jar") { force = true }
+	  //compile("com.gmind7.bakery:bakery-spring-database-config:$bakeryDatabaseConfigVersion@jar") { force = true }
+	  compile("com.gmind7.bakery:bakery-spring-infinispan-config:$bakerySpringInfinispanVersion@jar") { force = true }
   
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
@@ -185,7 +186,7 @@ configure(subprojects) { subproject ->
 			 
 	  // Hibernate
 	  compile "org.hibernate:hibernate-entitymanager:$hibernateVersion"
-	  
+
 	  // Mybatis
 	  compile "org.mybatis:mybatis:$mybatisVersion"
 	  compile "org.mybatis:mybatis-spring:$mybatisSpringVersion"
@@ -195,8 +196,16 @@ configure(subprojects) { subproject ->
 	  compile "com.mysema.querydsl:querydsl-jpa:$querydslVersion"
 	  
 	  // Ehcache
-	  compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
-	  compile "net.sf.ehcache:ehcache-core:$ehcacheVersion"
+	  // compile "org.hibernate:hibernate-ehcache:$hibernateVersion"
+	  // compile "net.sf.ehcache:ehcache-core:$ehcacheVersion"
+
+      // Infinispan
+      compile "org.infinispan:infinispan-core:$infinispanVersion"
+      compile "org.infinispan:infinispan-client-hotrod:$infinispanVersion"
+      compile "org.infinispan:infinispan-remote-query-client:$infinispanVersion"
+      compile "org.infinispan:infinispan-query-dsl:$infinispanVersion"
+      compile "org.infinispan:infinispan-spring:$infinispanVersion"
+      compile "org.hibernate:hibernate-infinispan:$hibernateVersion"
 	  
 	  // Jackson
       compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"

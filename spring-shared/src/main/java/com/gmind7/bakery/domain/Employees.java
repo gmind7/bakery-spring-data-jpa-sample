@@ -2,16 +2,7 @@ package com.gmind7.bakery.domain;
 
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,7 +19,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @ToString(callSuper=true, exclude={"office","reportsToEmployee", "customers"})
 @Entity
 @Table(name = "employees")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Employees")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "Employees")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "employeeNumber")))
 public class Employees extends AbstractPersistable<Long> {
 	

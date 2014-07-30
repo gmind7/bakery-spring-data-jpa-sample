@@ -2,15 +2,7 @@ package com.gmind7.bakery.domain;
 
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Lob;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +19,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @ToString(callSuper=true, exclude="products")
 @Entity
 @Table(name="productlines")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ProductLines")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "ProductLines")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "productLine")))
 public class ProductLines extends AbstractPersistable<String> {
 	

@@ -2,12 +2,7 @@ package com.gmind7.bakery.domain;
 
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +19,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @ToString(callSuper=true, exclude="employees")
 @Entity
 @Table(name = "offices")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Offices")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "Offices")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "officeCode")))
 public class Offices extends AbstractPersistable<Long> {
 	

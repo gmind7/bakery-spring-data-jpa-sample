@@ -2,15 +2,7 @@ package com.gmind7.bakery.domain;
 
 import java.util.List;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,7 +19,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @ToString(callSuper=true, exclude={"salesRepEmployee", "orders", "payments"})
 @Entity
 @Table(name = "customers")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "Customers")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "Customers")
 @AttributeOverrides(@AttributeOverride(name="id", column = @Column(name = "customerNumber")))
 public class Customers extends AbstractPersistable<Long> {
     
@@ -61,13 +54,13 @@ public class Customers extends AbstractPersistable<Long> {
     
     private double creditLimit;
     
-    @ManyToOne(fetch=FetchType.LAZY, optional=false)
+    @ManyToOne(fetch=FetchType.LAZY, optional=true)
     @JoinColumn(name="salesRepEmployeeNumber", insertable=false, updatable=false)
     private Employees salesRepEmployee;
-    
+
     @OneToMany(mappedBy = "customer")
 	private List<Orders> orders;
-    
+
     @OneToMany(mappedBy = "customer")
 	private List<Payments> payments;
 }
