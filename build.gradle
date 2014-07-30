@@ -141,9 +141,9 @@ configure(subprojects) { subproject ->
 	dependencies {
 	  // Gmind7
       compile("com.gmind7.bakery:bakery-spring-application-config:$bakerySpringApplicationVersion@jar") { force = true }
-	  //compile("com.gmind7.bakery:bakery-spring-database-config:$bakeryDatabaseConfigVersion@jar") { force = true }
+	  compile("com.gmind7.bakery:bakery-spring-database-config:$bakeryDatabaseConfigVersion@jar") { force = true }
 	  compile("com.gmind7.bakery:bakery-spring-infinispan-config:$bakerySpringInfinispanVersion@jar") { force = true }
-  
+
 	  // Spring
 	  compile("org.springframework:spring-core:$springVersion") { force = true }
 	  compile("org.springframework:spring-beans:$springVersion") { force = true }	

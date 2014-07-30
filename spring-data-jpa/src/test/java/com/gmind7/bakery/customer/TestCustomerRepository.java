@@ -22,19 +22,10 @@ public class TestCustomerRepository extends AbstractApplicationTest {
 	@Test
 	public void findOne(){
 		Customers customer = repository.findOne(103L);
-        customer = repository.findOne(103L);
 		log.debug("customer {}", customer.toString());
 		log.debug("salesRepEmployee {}", customer.getSalesRepEmployee().toString());
 		log.debug("orders {}", customer.getOrders().toString());
 		assertNotNull(customer);
 	}
 
-    @Test
-    public void findOne1(){
-        Customers customer = repository.findOne(103L);
-        customer = repository.findOne(103L);
-        log.debug("customer {}", customer.toString());
-        assertNotNull(customer);
-    }
-	
 }
